@@ -87,8 +87,8 @@ type Shape interface {
 
 func totalArea(shape ...Shape) float64 {
 	var area float64
-	for _, v := range shape {
-		area += v
+	for _, value := range shape {
+		area = value
 	}
 	return area
 }

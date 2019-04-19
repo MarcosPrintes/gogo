@@ -28,7 +28,7 @@ func main() {
 		}
 	}
 
-	s(j)
+	s(2)
 }
 
 func s(val int) {
