@@ -5,29 +5,39 @@ import "fmt"
 /**
 
 ===== Integer ====
-int	    => int8 int16 int32 int64
-uint    => uint8 uint16 uint32 uint64
-uintptr => large enough to hold the bit pattern of any pointer.
+int	    =>
+	 - int8
+	 - int16
+	 - int32
+	 - int64
+uint    =>
+	- uint8
+	- uint16
+	- uint32
+	- uint64
+
+	uintptr => large enough to hold the bit pattern of any pointer.
 
 ==== Floating point ===
-- values which can be represented: “not a number” ( NaN , for things like 0/0 ) and positive and negative infinity. ( +∞ and −∞ )
-float 32
-float64
+- values which can be represented: “not a number” ( NaN , for things like 0/0 ) and
+  positive and negative infinity. ( +∞ and −∞ )
+- float 32
+- float64
 
--Two additional types for representing complex numbers (numbers with imaginary parts)
+- Two additional types for representing complex numbers (numbers with imaginary parts)
 complex64
 complex128
 
 **/
 
-// Go is lexically scoped using blocks
+/* Go is lexically scoped using blocks */
 
-var a = "valor de a" // global scope
+var a = "valor de a" // global scope, can be accessed by any function
 
 func main() {
 
 	//print
-	fmt.Println(len("migor miguxo"))
+	fmt.Println(len("print golang"))
 
 	// sum integer , floating point
 	fmt.Println("Um coelho", 1.1+1.2)
