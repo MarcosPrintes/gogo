@@ -3,7 +3,7 @@ package main
 /**
 EXAMPLE GO CRUD: Creation of a REST API that allow us to read, delete, insert and upadte articles on our site
 
-	- a simple server to handle requests http
+	- A simple server to handle requests http
 	- 3 distincts functions
 		- homePage()       - handle all request to root URL
 		- handleRequests() - match the URL path hit with a defined function
@@ -44,7 +44,7 @@ func returnAllArticles(w http.ResponseWriter, r *http.Request) {
 
 func eita(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "Eita man!")
-	fmt.Println("d")
+	fmt.Println("Endpoint hit: eita page")
 }
 
 func handleRequests() {
@@ -56,7 +56,7 @@ func handleRequests() {
 
 type Article struct {
 	Title       string `json: "Title"`
-	Description string ` json: "Description"`
+	Description string `json: "Description"`
 	Content     string `json: "Content"`
 }
 
