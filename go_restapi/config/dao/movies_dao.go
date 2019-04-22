@@ -1,6 +1,7 @@
 package dao
 
 import (
+	"fmt"
 	"log"
 
 	. "github.com.br/MarcosPrintes/go_restapi/models"
@@ -45,6 +46,7 @@ func (m *MoviesDAO) GetById(id string) (Movie, error) {
 }
 
 func (m *MoviesDAO) Create(movie Movie) error {
+	fmt.Println("create dao")
 	err := db.C(COLLECTION).Insert(movie)
 	return err
 }
@@ -55,6 +57,7 @@ func (m *MoviesDAO) Delete(id string) error {
 }
 
 func (m *MoviesDAO) Update(id string, movie Movie) error {
+	fmt.Println("update dao")
 	err := db.C(COLLECTION).UpdateId(bson.ObjectIdHex(id), &movie)
 	return err
 }

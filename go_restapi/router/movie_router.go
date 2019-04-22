@@ -28,7 +28,6 @@ func respondWithJson(w http.ResponseWriter, code int, payload interface{}) {
 }
 
 func GetAll(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("get all")
 	movies, err := dao.GetAll()
 	if err != nil {
 		respondWithError(w, http.StatusInternalServerError, err.Error())
@@ -51,14 +50,16 @@ func Create(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	var movie Movie
 
+	fmt.Println("create")
+
 	if err := json.NewDecoder(r.Body).Decode(&movie); err != nil {
-		respondWithError(w, http.StatusBadRequest, "Create: Invalid request payload")
+		respondWithError(w, http.StatusBadRequest, "Create 1: Invalid request payload")
 		return
 	}
 
 	movie.ID = bson.NewObjectId()
 	if err := dao.Create(movie); err != nil {
-		respondWithError(w, http.StatusInternalServerError, err.Error())
+		respondWithError(w, http.StatusInternalServerError, "Create 2"+err.Error())
 		return
 	}
 	respondWithJson(w, http.StatusOK, movie)
@@ -68,6 +69,8 @@ func Update(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	params := mux.Vars(r)
 	var movie Movie
+
+	fmt.Println("update")
 
 	if err := json.NewDecoder(r.Body).Decode(&movie); err != nil {
 		respondWithError(w, http.StatusBadRequest, "Upadate: Invalid request payload")
@@ -79,9 +82,7 @@ func Update(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// respondWithJson(w, http.StatusOK, map[string]string{"update result": movie.ID + "atualizado com sucesso."})
-	respondWithJson(w, http.StatusOK, map[string]string{"update result": "atualizado com sucesso."})
-
+	respondWithJson(w, http.StatusOK, map[string]string{"update result": movie.Name + "atualizado com sucesso."})
 }
 
 func Delete(w http.ResponseWriter, r *http.Request) {
