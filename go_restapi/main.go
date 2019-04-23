@@ -17,7 +17,6 @@ var config = Config{}
 
 // Inicializando e estabilizando a conexão com db
 func init() {
-	fmt.Println("init")
 	config.Read()
 
 	dao.Server = config.Server
@@ -34,7 +33,7 @@ func main() {
 	r.HandleFunc("/api/v1/movies/update/{id}", movierouter.Update).Methods("PUT")
 	r.HandleFunc("/api/v1/movies/delete/{id}", movierouter.Delete).Methods("DELETE")
 
-	var port = ":3001"
+	var port = ":3002"
 	fmt.Println("server is running on port", port)
 	log.Fatal(http.ListenAndServe(port, r))
 
