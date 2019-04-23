@@ -70,8 +70,6 @@ func Update(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	var movie Movie
 
-	fmt.Println("update")
-
 	if err := json.NewDecoder(r.Body).Decode(&movie); err != nil {
 		respondWithError(w, http.StatusBadRequest, "Upadate: Invalid request payload")
 		return

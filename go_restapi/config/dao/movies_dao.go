@@ -46,7 +46,6 @@ func (m *MoviesDAO) GetById(id string) (Movie, error) {
 }
 
 func (m *MoviesDAO) Create(movie Movie) error {
-	fmt.Println("create dao")
 	err := db.C(COLLECTION).Insert(movie)
 	return err
 }
