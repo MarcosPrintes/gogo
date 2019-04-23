@@ -89,6 +89,9 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	params := mux.Vars(r)
 
+	fmt.Println("delete")
+	fmt.Println("delete id", params["id"])
+
 	if err := dao.Delete(params["id"]); err != nil {
 		respondWithError(w, http.StatusInternalServerError, err.Error())
 		return

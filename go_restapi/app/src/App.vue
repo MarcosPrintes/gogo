@@ -51,14 +51,15 @@ export default {
     return {
       movies: [],
       dialog: false,
-      movieById:{}
+      movieById:{},
+      url: 'http://10.100.1.120:3002/api/v1/movies'
     };
   },
   mounted() {},
   methods: {
     getAll() {
       axios
-        .get("http://localhost:3002/api/v1/movies")
+        .get(this.url)
         .then(response => {
           this.movies = response.data;
           console.log(this.movies);
@@ -70,9 +71,8 @@ export default {
     showMovieById(id) {
       this.dialog = true
       axios
-        .get(`http://localhost:3002/api/v1/movies/${id}`)
+        .get(this.url+`/${id}`)
         .then(res => {
-
           this.movieById = res.data
         })
         .catch(err => {});
@@ -82,13 +82,7 @@ export default {
     },
     deleteById(id){
       this.dialog = false
-      axios.delete(`http://localhost:3002/api/v1/movies/delete/${id}`, {id:id})
-      .then(res =>{
-        console.log("delete res",res)
-      }).catch(err =>{
-        console.log("delete error", error)
-      })
-
+      axios.delete(this.url+`/delete/5cbe1992c9b8912e095ad17a`)
     }
   }
 };
