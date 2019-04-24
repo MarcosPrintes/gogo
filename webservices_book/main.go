@@ -12,6 +12,7 @@ type API struct {
 	Message string `json:"message"`
 }
 
+// ===================== Routing with gorilla ======================
 func hello(w http.ResponseWriter, r *http.Request) {
 	urlParams := mux.Vars(r)
 	name := urlParams["user"]
@@ -36,6 +37,33 @@ func main() {
 }
 
 /*
+============================ drone routing ===============================================
+
+func helloByMux(w http.ResponseWriter, r *http.Request) {
+	urlParams := r.URL.Query()
+	name := urlParams.Get(":name")
+	helloMsg := "Heloo " + name
+	message := API{helloMsg}
+
+	output, err := json.Marshal(message)
+
+	if err != nil {
+		fmt.Println("Algo errado jovem!")
+	}
+	fmt.Fprint(w, string(output))
+}
+
+func main() {
+	mux := routes.New()
+	mux.Get("/api/:name", helloByMux)
+	http.Handle("/", mux)
+	http.ListenAndServe(":8080", nil)
+
+}
+
+
+
+============================ standard routing ===============================================
 func main() {
 		There are some limitations with the built-in mux/router provided by the net/http package. You cannot, for example, supply a wildcard or a regular expression to a route.
 		http.HandleFunc("/api", handledFunc)
