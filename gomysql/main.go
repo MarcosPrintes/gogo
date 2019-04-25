@@ -1,9 +1,10 @@
 package main
 
 import (
+	"database/sql"
 	"fmt"
 
-	"database/sql"
+	. "github.com.br/MarcosPrintes/gomysql/model"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -25,7 +26,7 @@ func main() {
 
 	// del, err := db.Query("DELETE FROM mytest")
 
-	//results, err := db.Query("SELECT * FROM mytest")
+	results, err := db.Query("SELECT * FROM mytest")
 
 	if err != nil {
 		panic(err.Error())
@@ -33,7 +34,7 @@ func main() {
 
 	for results.Next() {
 		var user User
-		err := results.Scan(&user.Id, &user.Name)
+		err := results.Scan(&user.ID, &user.NAME)
 
 		if err != nil {
 			panic(err.Error())
@@ -44,9 +45,4 @@ func main() {
 
 	//be careful deferring Queries if you are using transactions
 	defer results.Close()
-}
-
-type User struct {
-	Id   int    `json:"id"`
-	Name string `json:"name"`
 }
