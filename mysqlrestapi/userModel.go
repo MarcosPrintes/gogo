@@ -33,7 +33,7 @@ func GetUsers(db *sql.DB, start, count int) ([]user, error) {
 	for rows.Next() {
 		var u user
 		if err := rows.Scan(&u.ID, &u.Name, &u.Age); err != nil {
-			fmt.Println("")
+			fmt.Println("next")
 		}
 		users = append(users, u)
 	}

@@ -9,6 +9,7 @@ import (
 	"strconv"
 
 	_ "github.com/go-sql-driver/mysql"
+
 	"github.com/gorilla/mux"
 )
 
@@ -86,8 +87,6 @@ func (app *App) getUsers(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *App) createUser(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("app createUser")
-	fmt.Println("app request => ", r)
 	var u user
 	decoder := json.NewDecoder(r.Body)
 
@@ -117,7 +116,8 @@ func (app *App) deleteUser(w http.ResponseWriter, r *http.Request) {
 func (app *App) initializeRoutes() {
 	fmt.Println("app initialize routes")
 	app.Router.HandleFunc("/users", app.getUsers).Methods("GET")
-	app.Router.HandleFunc("/newuser", app.createUser).Methods("GET")
+	app.Router.HandleFunc("/user", app.createUser).Methods("POST")
+	app.Router.HandleFunc("/del", app.deleteUser).Methods("DELETE")
 
 }
 
