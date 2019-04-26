@@ -11,7 +11,7 @@ type user struct {
 	Age  int    `json:"age"`
 }
 
-// methods that will query in db
+// model methods that will query in db
 func (user *user) GetUser(db *sql.DB) error {
 	statement := fmt.Sprintf("SELECT name, age FROM users WHERE id=%d", user.ID)
 	return db.QueryRow(statement).Scan(&user.Name, &user.Age)
@@ -42,7 +42,7 @@ func GetUsers(db *sql.DB, start, count int) ([]user, error) {
 }
 
 func (user *user) createUser(db *sql.DB) error {
-	fmt.Println("model createUser")
+	fmt.Println("model createUser user: ", user)
 	statement := fmt.Sprintf("INSERT INTO users (name, age) VALUES ('%s', '%d')", user.Name, user.ID)
 
 	_, err := db.Query(statement)

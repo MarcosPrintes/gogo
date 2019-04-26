@@ -1,5 +1,10 @@
 package main
 
+/*
+	create database rest_api_example;
+	create table users(id int AUTO INCREMENT NOT NULL, name VARHAR(50), age int(6) NOT NULL)
+*/
+
 import (
 	"database/sql"
 	"encoding/json"
