@@ -43,8 +43,7 @@ func GetUsers(db *sql.DB, start, count int) ([]user, error) {
 
 func (user *user) createUser(db *sql.DB) error {
 	fmt.Println("model createUser")
-	// statement := fmt.Sprintf("INSERT INTO users (name, age) VALUES ('%s','%d')", "Outro Alguem ", 987)
-	statement := fmt.Sprintf("INSERT INTO users (name, age) VALUES ('%s','%d')", "Outro Alguem ", 987)
+	statement := fmt.Sprintf("INSERT INTO users (name, age) VALUES ('%s', '%d')", user.Name, user.ID)
 
 	_, err := db.Query(statement)
 

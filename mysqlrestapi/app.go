@@ -43,11 +43,12 @@ func (app *App) Run(addr string) {
 //initialize api routes
 func (app *App) initializeRoutes() {
 	fmt.Println("app initialize routes")
-	app.Router.HandleFunc("/all", app.getUsers)
-	app.Router.HandleFunc("/user/{id}", app.getUser)
-	app.Router.HandleFunc("/create", app.createUser)
-	app.Router.HandleFunc("/del/{id}", app.deleteUser)
-	app.Router.HandleFunc("/upd/{id}", app.updateUser)
+	// to test with browser use .Methods("GET") for all
+	app.Router.HandleFunc("/all", app.getUsers).Methods("GET")
+	app.Router.HandleFunc("/user/{id}", app.getUser).Methods("GET")
+	app.Router.HandleFunc("/create", app.createUser).Methods("POST")
+	app.Router.HandleFunc("/del/{id}", app.deleteUser).Methods("DELETE")
+	app.Router.HandleFunc("/upd/{id}", app.updateUser).Methods("PUT")
 }
 
 // retrive a user by id, user model.GetUser method
@@ -98,12 +99,13 @@ func (app *App) getUsers(w http.ResponseWriter, r *http.Request) {
 func (app *App) createUser(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("app createUser")
 	var u user
-	// decoder := json.NewDecoder(r.Body)
+	decoder := json.NewDecoder(r.Body)
+	fmt.Println("app createUser decod: ", decoder)
 
-	// if err := decoder.Decode(&u); err != nil {
-	// 	respondWithError(w, http.StatusBadRequest, "create error, invalid request payload => "+err.Error())
-	// 	return
-	// }
+	if err := decoder.Decode(&u); err != nil {
+		respondWithError(w, http.StatusBadRequest, "create error, invalid request payload => "+err.Error())
+		return
+	}
 
 	defer r.Body.Close()
 
@@ -168,5 +170,4 @@ func respondWithJson(w http.ResponseWriter, code int, payload interface{}) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(code)
 	w.Write(response)
-
 }
