@@ -36,7 +36,18 @@ func (app *App) Initialize(user, password, dbName string) {
 
 // Run app
 func (app *App) Run(addr string) {
-	log.Fatal(http.ListenAndServe(addr, app.Router))
+	// log.Fatal(http.ListenAndServe(addr, app.Router))
+	http.ListenAndServe(addr, app.Router)
+}
+
+//initialize api routes
+func (app *App) initializeRoutes() {
+	fmt.Println("app initialize routes")
+	app.Router.HandleFunc("/all", app.getUsers)
+	app.Router.HandleFunc("/user/{id}", app.getUser)
+	app.Router.HandleFunc("/create", app.createUser)
+	app.Router.HandleFunc("/del/{id}", app.deleteUser)
+	app.Router.HandleFunc("/upd/{id}", app.updateUser)
 }
 
 // retrive a user by id, user model.GetUser method
@@ -45,7 +56,7 @@ func (app *App) getUser(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(vars["id"])
 
 	if err != nil {
-		responWithError(w, http.StatusBadRequest, "Invalid user ID")
+		respondWithError(w, http.StatusBadRequest, "Invalid user ID")
 		return
 	}
 
@@ -54,16 +65,13 @@ func (app *App) getUser(w http.ResponseWriter, r *http.Request) {
 	if err := u.GetUser(app.DB); err != nil {
 		switch err {
 		case sql.ErrNoRows:
-			responWithError(w, http.StatusNotFound, "user not found") //status 404
+			respondWithError(w, http.StatusNotFound, "user not found") //status 404
 		default:
-			responWithError(w, http.StatusInternalServerError, err.Error())
+			respondWithError(w, http.StatusInternalServerError, err.Error())
 			return
 		}
-
-		responWithJson(w, http.StatusOK, u)
 	}
-
-	fmt.Println("getUser => ", u)
+	respondWithJson(w, http.StatusOK, u)
 }
 
 func (app *App) getUsers(w http.ResponseWriter, r *http.Request) {
@@ -80,53 +88,81 @@ func (app *App) getUsers(w http.ResponseWriter, r *http.Request) {
 
 	users, err := GetUsers(app.DB, start, count)
 	if err != nil {
-		responWithError(w, http.StatusInternalServerError, err.Error())
+		respondWithError(w, http.StatusInternalServerError, err.Error())
 	}
 
-	responWithJson(w, http.StatusOK, users)
+	respondWithJson(w, http.StatusOK, users)
 }
 
+// This handler assumes that the request body is a JSON object containing the details of the user to be created
 func (app *App) createUser(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("app createUser")
 	var u user
-	decoder := json.NewDecoder(r.Body)
+	// decoder := json.NewDecoder(r.Body)
 
-	if err := decoder.Decode(&u); err != nil {
-		responWithError(w, http.StatusInternalServerError, "create error => "+err.Error())
-		return
-	}
+	// if err := decoder.Decode(&u); err != nil {
+	// 	respondWithError(w, http.StatusBadRequest, "create error, invalid request payload => "+err.Error())
+	// 	return
+	// }
 
 	defer r.Body.Close()
 
 	if err := u.createUser(app.DB); err != nil {
-		responWithError(w, http.StatusBadRequest, err.Error())
+		respondWithError(w, http.StatusBadRequest, err.Error())
 	}
 
-	responWithJson(w, http.StatusOK, u)
+	respondWithJson(w, http.StatusCreated, u)
 }
 
-func (app *App) updateUser() {
+func (app *App) updateUser(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("app updateUser")
+	vars := mux.Vars(r)
+	id, err := strconv.Atoi(vars["id"])
+	if err != nil {
+		respondWithError(w, http.StatusBadRequest, "update error: "+err.Error())
+		return
+	}
+
+	var u user
+	decoder := json.NewDecoder(r.Body)
+	fmt.Println("app updateUser decoder:", decoder)
+	if err := decoder.Decode(&u); err != nil {
+		respondWithError(w, http.StatusBadRequest, "update decoder erro:"+err.Error())
+		return
+	}
+	defer r.Body.Close()
+	u.ID = id
+	if err := u.updateUser(app.DB); err != nil {
+		respondWithError(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+	respondWithJson(w, http.StatusOK, u)
 }
 
 func (app *App) deleteUser(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("app deleteuser")
-}
+	vars := mux.Vars(r)
+	id, err := strconv.Atoi(vars["id"])
+	if err != nil {
+		respondWithError(w, http.StatusBadRequest, "delete error: "+err.Error())
+		return
+	}
 
-//initialize api routes
-func (app *App) initializeRoutes() {
-	fmt.Println("app initialize routes")
-	app.Router.HandleFunc("/users", app.getUsers).Methods("GET")
-	app.Router.HandleFunc("/user", app.createUser).Methods("POST")
-	app.Router.HandleFunc("/del", app.deleteUser).Methods("DELETE")
+	u := user{ID: id}
 
+	if err := u.deleteUser(app.DB); err != nil {
+		respondWithError(w, http.StatusBadRequest, "delete error:"+err.Error())
+		return
+	}
+
+	respondWithJson(w, http.StatusOK, map[string]string{"result:": "success"})
 }
 
 //===== success/error handlers ===========
-func responWithError(w http.ResponseWriter, code int, message string) {
-	responWithJson(w, code, map[string]string{"error": message})
+func respondWithError(w http.ResponseWriter, code int, message string) {
+	respondWithJson(w, code, map[string]string{"error": message})
 }
 
-func responWithJson(w http.ResponseWriter, code int, payload interface{}) {
+func respondWithJson(w http.ResponseWriter, code int, payload interface{}) {
 	response, _ := json.Marshal(payload)
 
 	w.Header().Set("Content-Type", "application/json")
