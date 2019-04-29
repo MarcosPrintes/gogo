@@ -6,39 +6,16 @@ import (
 	"crypto/md5"
 	"crypto/rand"
 	"encoding/hex"
-	"fmt"
 	"io"
+	"io/ioutil"
+	"os"
 )
 
 //https://medium.com/@kelvin_sp/building-and-testing-a-rest-api-in-golang-using-gorilla-mux-and-mysql-1f0518818ff6
 func main() {
-	cipher := encrypt([]byte("umasenhae"), "marcos")
-	fmt.Println("encrypted", cipher)
-	playnText := decrypt(cipher, "marcos")
-	fmt.Println("decrypted", playnText)
-
 	var a = App{}
 	a.Initialize("root", "", "rest_api_example")
 	a.Run("localhost:8081")
-
-	// db, err := sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/rest_api_example")
-
-	// if err != nil {
-	// 	panic(err.Error())
-	// }
-
-	// defer db.Close()
-
-	// // insert, err := db.Query("INSERT INTO users VALUES ( 200, 'Marcos', 30 )")
-	// del, err := db.Query("DELETE FROM users")
-
-	// if err != nil {
-	// 	panic(err.Error())
-	// }
-
-	// // defer insert.Close()
-	// defer del.Close()
-
 }
 
 // key
@@ -69,18 +46,26 @@ func decrypt(data []byte, passphrase string) []byte {
 	if err != nil {
 		panic(err.Error())
 	}
-
 	gcm, err := cipher.NewGCM(block)
 	if err != nil {
 		panic(err.Error())
 	}
-
 	nonceSize := gcm.NonceSize()
-	nonce, cipherText := data[:nonceSize], data[nonceSize:]
-	plainText, err := gcm.Open(nil, nonce, cipherText, nil)
+	nonce, ciphertext := data[:nonceSize], data[nonceSize:]
+	plaintext, err := gcm.Open(nil, nonce, ciphertext, nil)
 	if err != nil {
 		panic(err.Error())
 	}
+	return plaintext
+}
 
-	return plainText
+func encryptFile(filename string, data []byte, passphrase string) {
+	f, _ := os.Create(filename)
+	defer f.Close()
+	f.Write(encrypt(data, passphrase))
+}
+
+func decryptFile(filename string, passphrase string) []byte {
+	data, _ := ioutil.ReadFile(filename)
+	return decrypt(data, passphrase)
 }
