@@ -30,7 +30,6 @@ func (app *App) Initialize(user, password, dbName string) {
 	var err error
 
 	app.DB, err = sql.Open("mysql", connectionString)
-
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -96,13 +95,11 @@ func (app *App) getUsers(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		respondWithError(w, http.StatusInternalServerError, err.Error())
 	}
-
 	respondWithJson(w, http.StatusOK, users)
 }
 
 // This handler assumes that the request body is a JSON object containing the details of the user to be created
 func (app *App) createUser(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("app createUser")
 	var u user
 	decoder := json.NewDecoder(r.Body)
 	fmt.Println("app createUser decod: ", decoder)
@@ -117,14 +114,13 @@ func (app *App) createUser(w http.ResponseWriter, r *http.Request) {
 	if err := u.createUser(app.DB); err != nil {
 		respondWithError(w, http.StatusBadRequest, err.Error())
 	}
-
 	respondWithJson(w, http.StatusCreated, u)
 }
 
 func (app *App) updateUser(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("app updateUser")
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
+
 	if err != nil {
 		respondWithError(w, http.StatusBadRequest, "update error: "+err.Error())
 		return
@@ -171,7 +167,6 @@ func respondWithError(w http.ResponseWriter, code int, message string) {
 
 func respondWithJson(w http.ResponseWriter, code int, payload interface{}) {
 	response, _ := json.Marshal(payload)
-
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(code)
 	w.Write(response)
