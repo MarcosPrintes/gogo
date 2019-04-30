@@ -33,7 +33,6 @@ func (app *App) Initialize(user, password, dbName string) {
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	app.Router = mux.NewRouter()
 	app.initializeRoutes()
 }
