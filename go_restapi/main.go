@@ -33,7 +33,7 @@ func main() {
 	r.HandleFunc("/api/v1/movies/update/{id}", movierouter.Update).Methods("PUT")
 	r.HandleFunc("/api/v1/movies/delete/{id}", movierouter.Delete).Methods("DELETE")
 
-	port := ":3002"
+	port := "localhost:3002"
 	fmt.Println("server is running on port", port)
 	log.Fatal(http.ListenAndServe(port, r))
 

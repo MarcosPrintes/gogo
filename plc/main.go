@@ -1,7 +1,9 @@
 package main
 
+import . "github.com.br/MarcosPrintes/plc/controller"
+
 func main() {
 	var app = App{}
 	app.Initialize("root", "", "places")
-	app.Run("localhost:8087")
+	app.Run(":8089")
 }

@@ -17,7 +17,7 @@ func (user *user) GetUser(db *sql.DB) error {
 	return db.QueryRow(statement).Scan(&user.Name, &user.Age)
 }
 
-func GetUsers(db *sql.DB, start, count int) ([]user, error) {
+func GetAllUsers(db *sql.DB, start, count int) ([]user, error) {
 	statement := fmt.Sprintf("SELECT id, name, age FROM users LIMIT %d OFFSET %d", count, start)
 
 	rows, err := db.Query(statement)

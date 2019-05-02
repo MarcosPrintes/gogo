@@ -10,19 +10,46 @@ type User struct {
 	Id       int    `json:"id"`
 	Name     string `json:"name"`
 	Password string `json:"password"`
+	Photo    string `json:"photo"`
+	UserType string `json:"user_type"`
 }
 
-func CheckUser(db *sql.DB) ([]User, error) {
+type Credentials struct {
+	User     string `json:"user"`
+	Password string `json:"password"`
+}
+
+func (c *Credentials) Signup(db *sql.DB) (User, error) {
+	query := fmt.Sprintf("SELECT * FROM users WHERE name like '%s' AND password like '%s'", c.User, c.Password)
+	fmt.Println(query)
+	rows, err := db.Query(query)
+	if err != nil {
+		log.Fatal("signup error => ", err.Error())
+	}
+	var user User
+	for rows.Next() {
+		// var u User
+		if err := rows.Scan(&user.Id, &user.Name, &user.Password, &user.UserType, &user.Photo); err != nil {
+			log.Fatal("scan error =>", err.Error())
+		}
+		fmt.Println("find", user.Password)
+	}
+	return user, err
+}
+
+func GetAllUsers(db *sql.DB) ([]User, error) {
 	query := fmt.Sprintf("SELECT * FROM users")
 	rows, err := db.Query(query)
+
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	users := []User{}
+
 	for rows.Next() {
 		var user User
-		if err := rows.Scan(&user.Id, &user.Name, &user.Password); err != nil {
+		if err := rows.Scan(&user.Id, &user.Name, &user.Password, &user.UserType, &user.Photo); err != nil {
 			log.Fatal(err)
 		}
 		users = append(users, user)

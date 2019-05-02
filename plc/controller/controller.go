@@ -1,4 +1,4 @@
-package main
+package controller
 
 import (
 	"database/sql"
@@ -36,12 +36,36 @@ func (app *App) Run(addr string) {
 }
 
 func (app *App) InitializeRoutes() {
-	app.Router.HandleFunc("/all", app.checkUser).Methods("GET")
-	app.Router.HandleFunc("/createUser", app.createUser).Methods("POST")
+	app.Router.HandleFunc("/api/v1/all", app.getAllUsers).Methods("GET")
+	app.Router.HandleFunc("/api/v1/signup", app.signup).Methods("POST")
+	app.Router.HandleFunc("/api/v1/createUser", app.createUser).Methods("POST")
 }
 
-func (app *App) checkUser(w http.ResponseWriter, r *http.Request) {
-	users, err := CheckUser(app.Db)
+func (app *App) signup(w http.ResponseWriter, r *http.Request) {
+	var credentials Credentials
+
+	decode := json.NewDecoder(r.Body)
+
+	if err := decode.Decode(&credentials); err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		jsonResponseError(w, http.StatusBadRequest, err.Error())
+	}
+
+	defer r.Body.Close()
+
+	user, err := credentials.Signup(app.Db)
+	if err != nil {
+		log.Fatal("deu erro ai hein!")
+		jsonResponseError(w, http.StatusInternalServerError, err.Error())
+	}
+	if user.Name == "" {
+		jsonResponseError(w, http.StatusNotFound, "Usuário não encontrado")
+	}
+	jsonResponseSuccess(w, http.StatusOK, user)
+}
+
+func (app *App) getAllUsers(w http.ResponseWriter, r *http.Request) {
+	users, err := GetAllUsers(app.Db)
 	if err != nil {
 		jsonResponseError(w, http.StatusInternalServerError, err.Error())
 	}
@@ -68,11 +92,14 @@ func jsonResponseError(w http.ResponseWriter, code int, message string) {
 }
 
 func jsonResponseSuccess(w http.ResponseWriter, code int, payload interface{}) {
+
 	response, err := json.Marshal(payload)
 	if err != nil {
 		log.Fatal(err)
 	}
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:8080")
+	w.Header().Set("Access-Control-Allow-Methods", "HEAD, GET, POST, OPTIONS, PUT, PATCH, DELETE")
 	w.WriteHeader(code)
 	w.Write(response)
 }
