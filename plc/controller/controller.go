@@ -11,6 +11,7 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 )
 
@@ -28,11 +29,15 @@ func (app *App) Initialize(user, password, dbName string) {
 		log.Fatal(err)
 	}
 	app.Router = mux.NewRouter()
-	app.InitializeRoutes()
-}
 
-func (app *App) Run(addr string) {
-	http.ListenAndServe(addr, app.Router)
+	allowedHeaders := handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type"})
+	allowedOrigins := handlers.AllowedOrigins([]string{"*"})
+	allowedMethods := handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"})
+
+	app.InitializeRoutes()
+
+	http.ListenAndServe(":8089", handlers.CORS(allowedHeaders, allowedOrigins, allowedMethods)(app.Router))
+
 }
 
 func (app *App) InitializeRoutes() {
@@ -59,7 +64,7 @@ func (app *App) signup(w http.ResponseWriter, r *http.Request) {
 		jsonResponseError(w, http.StatusInternalServerError, err.Error())
 	}
 	if user.Name == "" {
-		jsonResponseError(w, http.StatusNotFound, "Usuário não encontrado")
+		jsonResponseSuccess(w, http.StatusUnauthorized, "Usuário não encontrado")
 	}
 	jsonResponseSuccess(w, http.StatusOK, user)
 }
@@ -84,9 +89,11 @@ func (app *App) createUser(w http.ResponseWriter, r *http.Request) {
 	if err := user.CreateUser(app.Db); err != nil {
 		jsonResponseError(w, http.StatusBadRequest, "cannot create users, error => "+err.Error())
 	}
+
 	jsonResponseSuccess(w, http.StatusOK, user)
 }
 
+//=============== Responses =================
 func jsonResponseError(w http.ResponseWriter, code int, message string) {
 	jsonResponseSuccess(w, code, map[string]string{})
 }
@@ -98,8 +105,6 @@ func jsonResponseSuccess(w http.ResponseWriter, code int, payload interface{}) {
 		log.Fatal(err)
 	}
 	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:8080")
-	w.Header().Set("Access-Control-Allow-Methods", "HEAD, GET, POST, OPTIONS, PUT, PATCH, DELETE")
 	w.WriteHeader(code)
 	w.Write(response)
 }

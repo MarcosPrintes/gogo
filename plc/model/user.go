@@ -9,8 +9,8 @@ import (
 type User struct {
 	Id       int    `json:"id"`
 	Name     string `json:"name"`
+	Email    string `json:"email"`
 	Password string `json:"password"`
-	Photo    string `json:"photo"`
 	UserType string `json:"user_type"`
 }
 
@@ -20,7 +20,7 @@ type Credentials struct {
 }
 
 func (c *Credentials) Signup(db *sql.DB) (User, error) {
-	query := fmt.Sprintf("SELECT * FROM users WHERE name like '%s' AND password like '%s'", c.User, c.Password)
+	query := fmt.Sprintf("SELECT * FROM users WHERE user_name like '%s' AND password like '%s'", c.User, c.Password)
 	fmt.Println(query)
 	rows, err := db.Query(query)
 	if err != nil {
@@ -28,11 +28,9 @@ func (c *Credentials) Signup(db *sql.DB) (User, error) {
 	}
 	var user User
 	for rows.Next() {
-		// var u User
-		if err := rows.Scan(&user.Id, &user.Name, &user.Password, &user.UserType, &user.Photo); err != nil {
-			log.Fatal("scan error =>", err.Error())
+		if err := rows.Scan(&user.Id, &user.Name, &user.Email, &user.Password, &user.UserType); err != nil {
+			log.Fatal("signup scan error =>", err.Error())
 		}
-		fmt.Println("find", user.Password)
 	}
 	return user, err
 }
@@ -49,7 +47,7 @@ func GetAllUsers(db *sql.DB) ([]User, error) {
 
 	for rows.Next() {
 		var user User
-		if err := rows.Scan(&user.Id, &user.Name, &user.Password, &user.UserType, &user.Photo); err != nil {
+		if err := rows.Scan(&user.Id, &user.Name, &user.Email, &user.Password, &user.UserType); err != nil {
 			log.Fatal(err)
 		}
 		users = append(users, user)
@@ -58,7 +56,7 @@ func GetAllUsers(db *sql.DB) ([]User, error) {
 }
 
 func (user *User) CreateUser(db *sql.DB) error {
-	query := fmt.Sprintf("INSERT INTO users (id, name, password) VALUES ('%d', '%s', '%s')", user.Id, user.Name, user.Password)
+	query := fmt.Sprintf("INSERT INTO users (user_name, user_email, password, user_type) VALUES ('%s', '%s', '%s', '%s')", user.Name, user.Email, user.Password, user.UserType)
 
 	_, err := db.Query(query)
 	if err != nil {
