@@ -9,6 +9,7 @@ import (
 	"log"
 	"net/http"
 
+	. "github.com.br/MarcosPrintes/echoApi/model"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 )
@@ -21,8 +22,7 @@ type App struct {
 func main() {
 	var err error
 	var app App
-	//user:password@/dbname
-	app.DB, err = sql.Open("mysql", "root:@/places")
+	app.DB, err = sql.Open("mysql", "root:@/places") // user:password@/dbname
 	if err != nil {
 		log.Fatal(err.Error())
 	}
@@ -38,7 +38,7 @@ func main() {
 	}))
 
 	app.Echo.GET("/get", app.getTest)
-	app.Echo.POST("/create", app.createUser)
+	app.Echo.POST("/login", app.login)
 	app.Echo.DELETE("/del/:id", app.delTest)
 	app.Echo.PUT("/upd/:id", app.updateTest)
 	app.Echo.Logger.Fatal(app.Echo.Start(":6543"))
@@ -58,40 +58,40 @@ func (app *App) getTest(c echo.Context) error {
 	return c.JSON(http.StatusOK, users)
 }
 
-func (app *App) createUser(c echo.Context) error {
-	user := new(User)
-
-	if err := c.Bind(user); err != nil {
-		log.Fatal("bind error", err.Error())
+func (app *App) login(c echo.Context) error {
+	credentials := new(Credentials)
+	if err := c.Bind(credentials); err != nil {
+		log.Fatal("login bind error", err.Error())
 	}
 
-	fmt.Println(user.UserName)
-
-	sql := fmt.Sprintf("SELECT * FROM users WHERE user_name like '%s' ", user.UserName)
+	sql := fmt.Sprintf("SELECT * FROM users WHERE user_name like '%s' AND password like '%s' ", credentials.UserName, credentials.UserPass)
 
 	query, err := app.DB.Query(sql)
 
 	if err != nil {
 		log.Fatal("select erro: ", err.Error())
 	}
-
+	var user User
 	for query.Next() {
-		if query.Next() == false {
-			res, err := app.DB.Exec("INSERT INTO users (user_name, user_email, password, user_type) VALUES (?, ?, ?, ?)", user.UserName, user.UserEmail, user.UserPass, user.UserType)
-			if err != nil {
-				log.Fatal("Insert error: ", err.Error())
-			}
-			return c.JSON(http.StatusOK, res)
-		} else {
-			fmt.Println("usuário já cadastrado")
+		err := query.Scan(&user.UserId, &user.UserName, &user.UserPass, &user.UserEmail, &user.UserType)
+		if err != nil {
+			log.Fatal("login erro: ", err.Error())
 		}
 	}
-
-	// fmt.Println(res.LastInsertId())
-	return c.JSON(http.StatusOK, "ok")
+	return c.JSON(http.StatusOK, user)
 }
 
-func insert
+func (app *App) insert(c echo.Context) error {
+	user := new(User)
+	if err := c.Bind(user); err != nil {
+		log.Fatal("bind error", err.Error())
+	}
+	res, err := app.DB.Exec("INSERT INTO users (user_name, user_email, password, user_type) VALUES (?, ?, ?, ?)", user.UserName, user.UserEmail, user.UserPass, user.UserType)
+	if err != nil {
+		log.Fatal("Insert error: ", err.Error())
+	}
+	return c.JSON(http.StatusOK, res)
+}
 
 func (app *App) delTest(c echo.Context) error {
 	user_id := c.Param("id")
@@ -105,7 +105,6 @@ func (app *App) delTest(c echo.Context) error {
 		log.Fatal("delete error: ", err.Error())
 	}
 	fmt.Println(res.RowsAffected())
-
 	return c.JSON(http.StatusOK, res)
 }
 
