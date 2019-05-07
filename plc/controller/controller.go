@@ -28,6 +28,7 @@ func (app *App) Initialize(user, password, dbName string) {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	app.Router = mux.NewRouter()
 
 	allowedHeaders := handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type"})

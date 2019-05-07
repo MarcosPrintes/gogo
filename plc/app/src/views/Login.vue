@@ -89,7 +89,7 @@ export default {
         await axios
         .post(this.url+'/signup',{  user: this.user, password: this.password })
         .then(response =>{
-          if(response.status == 200){
+          if(response.status == 200) {
             this.dialog = false
             this.textLoginBtn = 'Logout'
             this.$store.commit('userIsLogged')
@@ -97,7 +97,7 @@ export default {
           }
         })
         .catch(err => {
-          console.log(err)
+          // console.log(err)
         })
     },
     register(){

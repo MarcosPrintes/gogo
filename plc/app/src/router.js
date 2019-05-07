@@ -5,13 +5,11 @@ import Login from './views/Login.vue'
 
 Vue.use(Router)
 
-function authGuard(to, from, next) {
-    let state = this.$store.state.logged
-    console.log('state => ',state)
-    next({
-      path:'/login'
-    })
-}
+// function authGuard(to, from, next) {
+//     next({
+//       path:'/login'
+//     })
+// }
 
 export default new Router({
   routes: [
@@ -19,8 +17,13 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home,
-      beforeEnter: authGuard
-    },
+      beforeEnter: (to, from, next)=> {
+
+        next({
+          path:'/login'
+        })
+    }
+  },
     {
       path: '/login',
       name: 'login',
