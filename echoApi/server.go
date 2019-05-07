@@ -39,6 +39,7 @@ func main() {
 
 	app.Echo.GET("/get", app.getTest)
 	app.Echo.POST("/login", app.login)
+	app.Echo.POST("/create", app.insert)
 	app.Echo.DELETE("/del/:id", app.delTest)
 	app.Echo.PUT("/upd/:id", app.updateTest)
 	app.Echo.Logger.Fatal(app.Echo.Start(":6543"))
@@ -59,26 +60,28 @@ func (app *App) getTest(c echo.Context) error {
 }
 
 func (app *App) login(c echo.Context) error {
+	var status int
+	var res string
 	credentials := new(Credentials)
 	if err := c.Bind(credentials); err != nil {
 		log.Fatal("login bind error", err.Error())
 	}
 
-	sql := fmt.Sprintf("SELECT * FROM users WHERE user_name like '%s' AND password like '%s' ", credentials.UserName, credentials.UserPass)
-
-	query, err := app.DB.Query(sql)
-
+	var user_name int
+	row := app.DB.QueryRow("SELECT EXISTS (SELECT * FROM users WHERE user_name = ? AND password = ? )", credentials.UserName, credentials.UserPass)
+	err := row.Scan(&user_name)
 	if err != nil {
 		log.Fatal("select erro: ", err.Error())
 	}
-	var user User
-	for query.Next() {
-		err := query.Scan(&user.UserId, &user.UserName, &user.UserPass, &user.UserEmail, &user.UserType)
-		if err != nil {
-			log.Fatal("login erro: ", err.Error())
-		}
+	fmt.Println(user_name)
+	if user_name == 0 {
+		status = http.StatusNotFound
+		res = "usuário não cadastrado"
+	} else {
+		status = http.StatusOK
+		res = "usuário cadastrado"
 	}
-	return c.JSON(http.StatusOK, user)
+	return c.JSON(status, res)
 }
 
 func (app *App) insert(c echo.Context) error {
@@ -114,9 +117,11 @@ func (app *App) updateTest(c echo.Context) error {
 	if err := c.Bind(user); err != nil {
 		log.Fatal("update error: ", err.Error())
 	}
-	fmt.Println("name", user.UserName)
+
 	sql := fmt.Sprintf("UPDATE users SET user_name = '%s' WHERE user_id = ?", user.UserName)
+
 	stmt, err := app.DB.Prepare(sql)
+
 	if err != nil {
 		log.Fatal("update error: ", err.Error())
 	}
@@ -125,7 +130,5 @@ func (app *App) updateTest(c echo.Context) error {
 	if err != nil {
 		log.Fatal("update exec error: ", err.Error())
 	}
-
-	fmt.Println("res => ", res)
-	return c.JSON(http.StatusOK, "upd")
+	return c.JSON(http.StatusOK, res)
 }

@@ -74,7 +74,7 @@ export default {
       dialog: true,
       user:'',
       password:'',
-      url: 'http://localhost:8089/api/v1',
+      url: 'http://localhost:6543',
       textLoginBtn: 'Login',
       registerDialog: false,
       registerName:'',
@@ -85,9 +85,9 @@ export default {
     }
   },
   methods: {
-    async login() {
+    async login() { 
         await axios
-        .post(this.url+'/signup',{  user: this.user, password: this.password })
+        .post(this.url+'/login', {user_name: 'user50', ser_pass:'122345678'})
         .then(response =>{
           if(response.status == 200) {
             this.dialog = false
