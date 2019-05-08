@@ -10,19 +10,20 @@
       </v-btn> -->
     </v-toolbar>
     <v-content>
+      <!-- <sidebar :listUsers="users"></sidebar> -->
      <router-view></router-view>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import Sidebar from './components/Sidebar'
+// import Sidebar from './components/Sidebar'
 import axios from "axios";
 
 export default {
   name: 'App',
   components: {
-    Sidebar
+    // Sidebar
   },
   data () {
     return {

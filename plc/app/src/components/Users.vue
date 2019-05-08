@@ -31,7 +31,7 @@ export default {
   .image-user{
     width: 60px;
     height: 60px;
-    border: 2px solid #000;
+    box-shadow: 3px 3px 3px #ccc;
     border-radius: 100px;
     margin: 0 auto;
     position: relative;
@@ -52,7 +52,7 @@ export default {
   span{
     margin-top: 5px;
     display: inline-block;
-    color:#fff;
+    color:#000;
   }
 }
 </style>

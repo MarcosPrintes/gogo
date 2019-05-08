@@ -1,7 +1,6 @@
 <template>
   <v-container fluid>
-      <p>home</p>
-      <sidebar></sidebar>        
+    <sidebar :listUsers="users" ></sidebar>
   </v-container>
 </template>
 
@@ -11,7 +10,7 @@ import Sidebar from '../components/Sidebar'
 
 export default {
   name: 'Home',
-  components: {
+  components:{
     Sidebar
   },
   data () {
@@ -22,19 +21,14 @@ export default {
     }
   },
   mounted(){
-    console.log('sdfsdf')
-  },
-  created(){
-    console.log('sdfsdf cre')
+      axios
+      .get(this.url+'/get')
+      .then(res =>{
+        this.users = res.data
+      })
+      .catch(err =>{
+        console.log(err)
+      })
   },
 }
-</script>
-
-<script>
-
-  export default {
-    components: {
-    
-    }
-  }
 </script>

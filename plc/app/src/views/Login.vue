@@ -61,7 +61,6 @@
 </template>
 
 <script>
-// import Sidebar from '../components/Sidebar'
 import axios from "axios";
 
 export default {
@@ -94,7 +93,7 @@ export default {
             this.textLoginBtn = 'Logout'
             this.$store.commit('userIsLogged')
             this.$router.replace('/')
-          }
+         }
         })
         .catch(err => {
           // console.log(err)
@@ -104,7 +103,6 @@ export default {
       this.dialog = false
       this.registerDialog = true  
     },
-   
     registerClose(){
       this.registerDialog = false;
       this.dialog = true;

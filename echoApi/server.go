@@ -67,6 +67,7 @@ func main() {
 	app.Echo.DELETE("/del/:id", app.delTest)
 	app.Echo.PUT("/upd/:id", app.updateTest)
 	app.Echo.Logger.Fatal(app.Echo.Start(":6543"))
+
 }
 
 func (app *App) getTest(c echo.Context) error {
@@ -84,28 +85,31 @@ func (app *App) getTest(c echo.Context) error {
 }
 
 func (app *App) login(c echo.Context) error {
-	var status int
+	var statusCode int
 	var res string
 	credentials := new(Credentials)
 	if err := c.Bind(credentials); err != nil {
 		log.Fatal("login bind error", err.Error())
 	}
-
-	var user_name int
-	row := app.DB.QueryRow("SELECT EXISTS (SELECT * FROM users WHERE user_name = ? AND password = ? )", credentials.UserName, credentials.UserPass)
-	err := row.Scan(&user_name)
-	if err != nil {
-		log.Fatal("select erro: ", err.Error())
+	// row := app.DB.QueryRow("SELECT EXISTS (SELECT * FROM users WHERE user_name = ? AND password = ? )", credentials.UserName, credentials.UserPass)
+	rows, err := app.DB.Query("SELECT * FROM users WHERE user_name = ?", credentials.UserName)
+	var u User
+	for rows.Next() {
+		err = rows.Scan(&u.UserId, &u.UserName, &u.UserEmail, &u.UserPass, &u.UserType)
+		if err != nil {
+			log.Fatal(err.Error())
+		}
 	}
-	// fmt.Println(user_name)
-	if user_name == 0 {
-		status = http.StatusNotFound
-		res = "usuário não cadastrado"
+	errPass := app.HashPass.comparePassowrd(u.UserPass, credentials.UserPass)
+	if errPass != nil {
+		statusCode = http.StatusUnauthorized
+		res = "não cadastrado"
 	} else {
-		status = http.StatusOK
-		res = "usuário cadastrado"
+		statusCode = http.StatusOK
+		res = "cadastrado"
 	}
-	return c.JSON(status, res)
+
+	return c.JSON(statusCode, res)
 }
 
 func (app *App) insert(c echo.Context) error {

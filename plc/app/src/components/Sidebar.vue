@@ -1,9 +1,8 @@
 <template>
   <div class="sidebar">
-    <p>sidebar</p>
-    <!-- <div v-for="u in lusers" :key="u.id" >
-      <users :name="u.name"></users>
-    </div> -->
+    <div v-for="u in lusers" :key="u.id" >
+      <users :name="u.user_name"></users>
+    </div>
   </div>
 </template>
 <script>
@@ -33,13 +32,14 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.side-bar{
+.sidebar{
   position: fixed;
   width: 150px;
   height: 100%;
   top: 0;
   left: 0;  
-  background: rgba($color: #000000, $alpha: .5);
+  background: #fff;
+  box-shadow: 3px 5px 7px #ccc;
   padding-top: 100px;
 }
 
