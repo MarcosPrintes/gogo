@@ -1,48 +1,40 @@
 <template>
   <v-container fluid>
       <p>home</p>
-      <sidebar></sidebar>
+      <sidebar></sidebar>        
   </v-container>
 </template>
 
 <script>
-import Sidebar from './components/Sidebar'
 import axios from "axios";
+import Sidebar from '../components/Sidebar'
 
 export default {
-  name: 'App',
+  name: 'Home',
   components: {
     Sidebar
   },
   data () {
     return {
-      url: 'http://localhost:8089/api/v1',
+      url: 'http://localhost:6543',
       textLoginBtn: 'Login',
       users:[]
     }
   },
   mounted(){
-    console.log('home mounted')
-      axios.get(this.url+'/all')
-      .then(res => {
-        this.users = res.data
-     })
-      .catch(err =>{
-        // console.log(err)
-      })
+    console.log('sdfsdf')
   },
-  methods: {
-  
-  }
+  created(){
+    console.log('sdfsdf cre')
+  },
 }
 </script>
 
 <script>
-  import HelloWorld from '../components/HelloWorld'
 
   export default {
     components: {
-      HelloWorld
+    
     }
   }
 </script>

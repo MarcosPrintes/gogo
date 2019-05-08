@@ -8,11 +8,10 @@ export default new Vuex.Store({
     logged: false
   },
   mutations: {
-    userIsLogged(state){
+    userIsLogged(state) {
       state.logged = true
     }
   },
   actions: {
-
   }
 })

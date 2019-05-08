@@ -61,13 +61,13 @@
 </template>
 
 <script>
-import Sidebar from '../components/Sidebar'
+// import Sidebar from '../components/Sidebar'
 import axios from "axios";
 
 export default {
   name: 'App',
   components: {
-    Sidebar
+    // Sidebar
   },
   data () {
     return {
@@ -85,10 +85,10 @@ export default {
     }
   },
   methods: {
-    async login() { 
-        await axios
-        .post(this.url+'/login', {user_name: 'user50', ser_pass:'122345678'})
-        .then(response =>{
+    login() { 
+      axios
+        .post(this.url+'/login', {user_name: this.user, user_pass: this.password})
+        .then(response => {
           if(response.status == 200) {
             this.dialog = false
             this.textLoginBtn = 'Logout'
@@ -98,7 +98,7 @@ export default {
         })
         .catch(err => {
           // console.log(err)
-        })
+      })
     },
     register(){
       this.dialog = false
@@ -110,17 +110,29 @@ export default {
       this.dialog = true;
     },
     save(){
-      let payload = { name: this.registerName,  email: this.registerEmail,  password: this.registerPassword,  user_type: 'hmmm' }
-      axios.post(this.url+'/createUser', payload)
+      let payload = { 
+        user_name: this.registerName, 
+        user_email: this.registerEmail,
+        user_pass: this.registerPassword,
+        user_type: 'admin'
+    }
+      axios.post(this.url+'/create', payload)
       .then(response =>{
         if(response.status == 200){
           this.registerDialog = false
           this.dialog = true
+          this.clean()
         }
       })
       .catch(err => {
         // console.log(err)
       })
+    },
+    clean(){
+      this.registerName     = ''
+      this.registerEmail    = ''
+      this.registerPassword = ''
+      this.user_type        = ''
     }
   }
 }

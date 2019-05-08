@@ -4,6 +4,8 @@ import (
 	"database/sql"
 	"fmt"
 
+	"golang.org/x/crypto/bcrypt"
+
 	_ "github.com/go-sql-driver/mysql"
 
 	"log"
@@ -15,8 +17,30 @@ import (
 )
 
 type App struct {
-	Echo *echo.Echo
-	DB   *sql.DB
+	Echo     *echo.Echo
+	DB       *sql.DB
+	HashPass *Hash
+}
+
+type Hash struct{}
+
+func (h *Hash) encryptPassword(str string) (string, error) {
+
+	saltedBytes := []byte(str)
+	hashedBytes, err := bcrypt.GenerateFromPassword(saltedBytes, bcrypt.DefaultCost)
+	if err != nil {
+		log.Fatal("create hash error: ", err.Error)
+	}
+
+	hashed := string(hashedBytes)
+
+	return hashed, err
+}
+
+func (h *Hash) comparePassowrd(hashedStr, str string) error {
+	incoming := []byte(str)
+	existing := []byte(hashedStr)
+	return bcrypt.CompareHashAndPassword(existing, incoming)
 }
 
 func main() {
@@ -73,7 +97,7 @@ func (app *App) login(c echo.Context) error {
 	if err != nil {
 		log.Fatal("select erro: ", err.Error())
 	}
-	fmt.Println(user_name)
+	// fmt.Println(user_name)
 	if user_name == 0 {
 		status = http.StatusNotFound
 		res = "usuário não cadastrado"
@@ -89,6 +113,14 @@ func (app *App) insert(c echo.Context) error {
 	if err := c.Bind(user); err != nil {
 		log.Fatal("bind error", err.Error())
 	}
+
+	pass, cryptErr := app.HashPass.encryptPassword(user.UserPass)
+	if cryptErr != nil {
+		log.Fatal("user crypt error password: ", cryptErr.Error())
+	}
+	user.UserPass = pass
+	fmt.Println("user password", user.UserPass)
+
 	res, err := app.DB.Exec("INSERT INTO users (user_name, user_email, password, user_type) VALUES (?, ?, ?, ?)", user.UserName, user.UserEmail, user.UserPass, user.UserType)
 	if err != nil {
 		log.Fatal("Insert error: ", err.Error())

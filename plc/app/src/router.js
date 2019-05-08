@@ -2,14 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Login from './views/Login.vue'
+import store from './store'
 
 Vue.use(Router)
-
-// function authGuard(to, from, next) {
-//     next({
-//       path:'/login'
-//     })
-// }
 
 export default new Router({
   routes: [
@@ -17,17 +12,21 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home,
-      beforeEnter: (to, from, next)=> {
-
-        next({
-          path:'/login'
-        })
-    }
+      beforeEnter: ((to, from, next) =>{
+       console.log(store.state.logged)
+        if(!store.state.logged) {
+          next({
+            path:'/login'
+          })
+        }else{
+          next()
+        }
+      })
   },
     {
       path: '/login',
       name: 'login',
-      component: Login
+      component: Login,
     },
     // {
     //   path: '/about',

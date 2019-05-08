@@ -1,21 +1,23 @@
 <template>
-  <div class="side-bar">
-    <div v-for="u in lusers" :key="u.id" >
+  <div class="sidebar">
+    <p>sidebar</p>
+    <!-- <div v-for="u in lusers" :key="u.id" >
       <users :name="u.name"></users>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
 import Users from '@/components/Users'
 
 export default {
-  name:'side-bar',
+  name: 'sidebar',
+ 
   data(){
     return {
     lusers: this.listUsers
    }
   },
-  components:{
+  components: {
     Users
   },
   props:{
@@ -39,7 +41,6 @@ export default {
   left: 0;  
   background: rgba($color: #000000, $alpha: .5);
   padding-top: 100px;
-
 }
 
 </style>
