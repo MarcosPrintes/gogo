@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net"
 	"sync"
@@ -26,6 +27,7 @@ type Repository struct {
 
 // Create
 func (repo *Repository) Create(consignment *pb.Consignment) (*pb.Consignment, error) {
+	fmt.Println("create")
 	repo.mu.Lock()
 	updated := append(repo.consignments, consignment)
 	repo.consignments = updated
@@ -39,6 +41,7 @@ type service struct {
 }
 
 func (s *service) CreateConsignment(ctx context.Context, req *pb.Consignment) (*pb.Response, error) {
+	fmt.Println("CreateConsignment")
 	c, err := s.repo.Create(req)
 	if err != nil {
 		log.Fatal("error =>" + err.Error())

@@ -3,6 +3,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
@@ -36,7 +37,6 @@ func main() {
 	}
 	defer conn.Close()
 	client := pb.NewShippingServiceClient(conn)
-
 	// Contact the server and print out its response.
 	file := defaultFilename
 	if len(os.Args) > 1 {
@@ -44,7 +44,7 @@ func main() {
 	}
 
 	consignment, err := parseFile(file)
-
+	fmt.Println("cons", consignment)
 	if err != nil {
 		log.Fatalf("Could not parse file: %v", err.Error())
 	}
