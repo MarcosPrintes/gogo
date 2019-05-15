@@ -15,7 +15,7 @@ func main() {
 	// loop for
 	i := 1
 	for i <= 10 {
-		fmt.Println(i)
+		fmt.Println("contanto: ", i)
 		i++
 	}
 	fmt.Println("===================")
@@ -28,7 +28,7 @@ func main() {
 		}
 	}
 
-	s(2)
+	// s(2)
 }
 
 func s(val int) {

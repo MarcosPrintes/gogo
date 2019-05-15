@@ -17,7 +17,7 @@ import (
 
 func pinger(c chan string) {
 	for i := 0; ; i++ {
-		c <- "pinger" // send msg pinger
+		c <- "pinger1" // send msg pinger
 	}
 }
 
@@ -59,6 +59,7 @@ func main() {
 
 	go pinger2(c)
 	go printer2(c)
+
 	var input string
 	fmt.Scanln(&input)
 
