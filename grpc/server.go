@@ -18,7 +18,6 @@ const (
 
 // Server is used to implement customer.CustomerServer.
 type Server struct {
-	// savedCustomers       []*proto_buff.CustomerRequest
 	savedFakersCustomers []*proto_buff.FakeCustomerRequest
 }
 
@@ -46,6 +45,12 @@ func (server *Server) GetFakersCustomer(filter *proto_buff.FakeCustomerFilter, s
 	return nil
 }
 
+//CustomMessage bla bla
+func (server *Server) SendCustomMessage(ctx context.Context, customMessage *proto_buff.CustomMessageRequest) (*proto_buff.MessageResponse, error) {
+	fmt.Println(customMessage)
+	return &proto_buff.MessageResponse{Id: 1, Success: true}, nil
+}
+
 func main() {
 	lis, err := net.Listen("tcp", port)
 	if err != nil {
@@ -54,6 +59,6 @@ func main() {
 
 	// Creates a new gRPC server
 	s := grpc.NewServer()
-	proto_buff.RegisterFakeCustomerServer(s, &Server{})
+	proto_buff.RegisterFakeCustomerServer(s, &Server{}) //Register service to communicate with client
 	s.Serve(lis)
 }

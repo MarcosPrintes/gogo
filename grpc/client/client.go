@@ -44,10 +44,19 @@ func getFakers(client proto_buff.FakeCustomerClient, filter *proto_buff.FakeCust
 	}
 }
 
+func sendCustomMessage(client proto_buff.FakeCustomerClient, customMessage *proto_buff.CustomMessageRequest) {
+	fmt.Println("client  custom message => ", customMessage)
+	response, err := client.SendCustomMessage(context.Background(), customMessage)
+	if err != nil {
+		log.Fatal("send message error =>", err.Error())
+	}
+	fmt.Println(response)
+}
+
 func main() {
 	conn, err := grpc.Dial(address, grpc.WithInsecure()) // CONNECTION TO gRPC SERVER.
 	if err != nil {
-		log.Fatalf("did not connect: %%v", err)
+		log.Fatalf("did not connect: %v", err)
 	}
 	defer conn.Close() // CLOSE CONNECTION WHEN END main()
 
@@ -63,4 +72,9 @@ func main() {
 
 	fakeFilter := &proto_buff.FakeCustomerFilter{Keyword: ""}
 	getFakers(fakeClient, fakeFilter)
+	msg := &proto_buff.CustomMessageRequest{
+		TypeMsg: "1",
+		Name:    "lkfjhsdlkf",
+	}
+	sendCustomMessage(fakeClient, msg)
 }
