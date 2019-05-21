@@ -2,13 +2,12 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
-
-	"context"
 
 	pb "github.com.br/MarcosPrintes/consigment-service/proto"
 	"google.golang.org/grpc"
@@ -37,6 +36,7 @@ func main() {
 	}
 	defer conn.Close()
 	client := pb.NewShippingServiceClient(conn)
+
 	// Contact the server and print out its response.
 	file := defaultFilename
 	if len(os.Args) > 1 {

@@ -1,0 +1,23 @@
+syntax ="proto3";
+package customer;
+
+service FakeCustomer {
+  rpc GetFakersCustomer (FakeCustomerFilter) returns (stream FakeCustomerRequest){}
+  rpc CreateFakeCustomer (FakeCustomerRequest) returns (FakeResponse){}
+}
+
+
+message FakeCustomerRequest {
+  int32 id = 1;
+  string name = 2;
+  string phone = 3;
+}
+
+message FakeCustomerFilter{
+  string keyword = 1;
+}
+
+message FakeResponse{
+  int32 id = 1;
+  bool success = 2;
+}
