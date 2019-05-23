@@ -11,14 +11,12 @@ import (
 
 func main() {
 
-	server := api.Server{}
-
-	list, err := net.Listen("tcp", "localhost:8089")
+	list, err := net.Listen("tcp", "localhost:8088")
 
 	if err != nil {
 		log.Fatal("error start grpc server => ", err.Error())
 	}
-
+	server := api.Server{}
 	grpcServer := grpc.NewServer()
 	proto.RegisterPingServer(grpcServer, &server)
 	grpcServer.Serve(list)
