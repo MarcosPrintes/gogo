@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package proto;
+
+service Ping {
+  rpc PingMethod (PingMessage) returns (PingMessage);
+}
+
+message PingMessage {
+  string pingMsg = 1;
+}
