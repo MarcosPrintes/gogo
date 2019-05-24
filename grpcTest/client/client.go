@@ -26,5 +26,6 @@ func main() {
 		log.Fatal("error => ", err.Error())
 	}
 
+	fmt.Println("message sent : ", creds)
 	fmt.Println("message sent : ", msg)
 }
