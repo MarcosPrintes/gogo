@@ -35,7 +35,6 @@ func (repo *Repository) Create(consignment *pb.Consignment) (*pb.Consignment, er
 	return consignment, nil
 }
 
-//
 type service struct {
 	repo repository
 }
