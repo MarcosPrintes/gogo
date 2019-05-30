@@ -40,7 +40,13 @@ func main() {
 	fmt.Println("make even => ", nextEven())
 
 	fmt.Println("fatorial ", fatorial(6))
+	f1(f22())
 
+	v1 := 10
+	r := &v1
+	fmt.Println("v1 =>", v1)
+	f23(r)
+	fmt.Println("v1 =>", v1)
 	/*
 		defer, panic, recover
 		- defer move the one() to end
@@ -63,6 +69,7 @@ func main() {
 		fmt.Println("recover => ", str) // recover a parameter from panic
 	}()
 	panic("PANIC")
+
 }
 
 /*
@@ -71,6 +78,26 @@ func main() {
 pop the last function off of the stack.
 
 */
+
+func f1(a int) {
+
+	fmt.Println(a + 10)
+}
+
+func f22() int {
+
+	x := func() {
+		///
+	}
+
+	x()
+
+	return 22
+}
+
+func f23(a *int) {
+	*a = 30
+}
 
 func average(xs []float64) float64 {
 	total := 0.0
