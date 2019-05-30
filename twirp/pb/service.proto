@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package pb;
+option go_package = "haberdasher";
+
+service HarberDash{
+  rpc Makehat (Size) returns (Hat){}
+}
+
+
+message Size{
+  int32 inches = 1;
+} 
+
+message Hat{
+  int32 inches = 1;
+  string color = 2;
+  string name = 3;
+}

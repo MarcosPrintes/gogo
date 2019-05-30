@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	address = "localhost:50051"
+	address = "127.0.0.1:50051"
 )
 
 func createFakeCustomer(client proto_buff.FakeCustomerClient, customer *proto_buff.FakeCustomerRequest) {
@@ -73,8 +73,8 @@ func main() {
 	fakeFilter := &proto_buff.FakeCustomerFilter{Keyword: ""}
 	getFakers(fakeClient, fakeFilter)
 	msg := &proto_buff.CustomMessageRequest{
-		TypeMsg: "1",
-		Name:    "lkfjhsdlkf",
+		TypeMsg: "message from client 2",
+		Name:    "Teste Client 2",
 	}
 	sendCustomMessage(fakeClient, msg)
 }

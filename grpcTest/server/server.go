@@ -16,7 +16,7 @@ func init() {
 
 func main() {
 
-	list, err := net.Listen("tcp", "localhost:8088")
+	list, err := net.Listen("tcp", ":8088")
 
 	if err != nil {
 		log.Fatal("error start grpc server => ", err.Error())

@@ -7,25 +7,39 @@ import (
 
 	"github.com.br/MarcosPrintes/grpcTest/proto"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
 )
 
 const (
-	port = ":8088"
+	port = "localhost:8088"
 )
 
 func main() {
-	connection, err := grpc.Dial(port, grpc.WithInsecure())
-	if err != nil {
-		log.Fatal()
-	}
-	defer connection.Close()
 
-	mClient := proto.NewPingClient(connection)
-	msg, err := mClient.PingMethod(context.Background(), &proto.PingMessage{PingMsg: "hmmmmmmmm!!"})
+	var conn *grpc.ClientConn
+
+	//create the client tsl credentials
+	creds, err := credentials.NewClientTLSFromFile("../cert/server.crt", "")
+
 	if err != nil {
-		log.Fatal("error => ", err.Error())
+		log.Fatalf("culd not load tls cert: %s", err)
 	}
 
-	fmt.Println("message sent : ", creds)
-	fmt.Println("message sent : ", msg)
+	// connection, err := grpc.Dial(port, grpc.WithInsecure())
+	conn, err = grpc.Dial(port, grpc.WithTransportCredentials(creds))
+
+	if err != nil {
+		log.Fatalf("did not connect: %s", err)
+	}
+
+	defer conn.Close()
+
+	client := proto.NewPingClient(conn)
+
+	response, err := client.PingMethod(context.Background(), &proto.PingMessage{PingMsg: "hmmmmmmmm!!"})
+	if err != nil {
+		log.Fatal("client test error => ", err.Error())
+	}
+
+	fmt.Println("message sent : ", response)
 }

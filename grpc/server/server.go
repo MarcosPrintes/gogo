@@ -13,7 +13,7 @@ import (
 )
 
 const (
-	port = ":50051"
+	port = "localhost:50051"
 )
 
 // Server is used to implement customer.CustomerServer.
