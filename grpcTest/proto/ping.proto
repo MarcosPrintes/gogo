@@ -3,7 +3,7 @@ syntax = "proto3";
 package proto;
 
 service Ping {
-  rpc PingMethod (PingMessage) returns (PingResponse){}
+  rpc PingMethod (PingMessage) returns (PingResponse);
 }
 
 message PingMessage {

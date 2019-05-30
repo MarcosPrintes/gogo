@@ -10,9 +10,9 @@ import (
 type Server struct {
 }
 
-func NewServer() *Server {
-	return &Server{}
-}
+// func NewServer() *Server {
+// 	return &Server{}
+// }
 
 func (server *Server) PingMethod(ctx context.Context, msg *proto.PingMessage) (*proto.PingResponse, error) {
 	fmt.Println("message => ", msg)

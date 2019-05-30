@@ -11,6 +11,12 @@ import (
 	"google.golang.org/grpc/credentials"
 )
 
+type Server struct {
+	server api.Server
+}
+
+var server Server
+
 func init() {
 }
 
@@ -22,7 +28,8 @@ func main() {
 		log.Fatal("error start grpc server => ", err.Error())
 	}
 
-	server := api.Server{}
+	// server = api.Server{}
+	server.server = api.Server{}
 
 	creds, err := credentials.NewServerTLSFromFile("cert/server.crt", "cert/server.key")
 	if err != nil {
@@ -36,7 +43,7 @@ func main() {
 
 	// grpcServer := grpc.NewServer()
 	grpcServer := grpc.NewServer(opts...) // pass options to new server grpc
-	proto.RegisterPingServer(grpcServer, &server)
+	proto.RegisterPingServer(grpcServer, &server.server)
 	if err := grpcServer.Serve(list); err != nil {
 		log.Fatal("grpc server error credentials:", err.Error())
 	}
