@@ -36,7 +36,8 @@ func main() {
 
 	client := proto.NewPingClient(conn)
 
-	Ping(client, &proto.PingMessage{PingMsg: "a message from client"})
+	// Ping(client, &proto.PingMessage{PingMsg: "a message from client"})
+	Login(client, &proto.LoginRequest{Name: "marcos", Password: "1234567"})
 }
 
 func Ping(client proto.PingClient, request *proto.PingMessage) {
@@ -47,5 +48,14 @@ func Ping(client proto.PingClient, request *proto.PingMessage) {
 	}
 
 	fmt.Println("ping response: ", response)
+}
 
+func Login(client proto.PingClient, request *proto.LoginRequest) {
+	response, err := client.LoginPing(context.Background(), request)
+
+	if err != nil {
+		log.Fatal("Login error")
+	}
+
+	fmt.Println("Login response => ", response)
 }
