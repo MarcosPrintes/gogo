@@ -36,10 +36,16 @@ func main() {
 
 	client := proto.NewPingClient(conn)
 
-	response, err := client.PingMethod(context.Background(), &proto.PingMessage{PingMsg: "hmmmmmmmm!!"})
+	Ping(client, &proto.PingMessage{PingMsg: "a message from client"})
+}
+
+func Ping(client proto.PingClient, request *proto.PingMessage) {
+	response, err := client.PingMethod(context.Background(), request)
+
 	if err != nil {
-		log.Fatal("client test error => ", err.Error())
+		log.Fatal("ping error: ", err.Error())
 	}
 
-	fmt.Println("message sent : ", response)
+	fmt.Println("ping response: ", response)
+
 }

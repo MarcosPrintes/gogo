@@ -102,24 +102,134 @@ func (m *PingResponse) GetResponse() string {
 	return ""
 }
 
+type LoginRequest struct {
+	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Password             string   `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *LoginRequest) Reset()         { *m = LoginRequest{} }
+func (m *LoginRequest) String() string { return proto.CompactTextString(m) }
+func (*LoginRequest) ProtoMessage()    {}
+func (*LoginRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_6d51d96c3ad891f5, []int{2}
+}
+
+func (m *LoginRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_LoginRequest.Unmarshal(m, b)
+}
+func (m *LoginRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_LoginRequest.Marshal(b, m, deterministic)
+}
+func (m *LoginRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LoginRequest.Merge(m, src)
+}
+func (m *LoginRequest) XXX_Size() int {
+	return xxx_messageInfo_LoginRequest.Size(m)
+}
+func (m *LoginRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_LoginRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_LoginRequest proto.InternalMessageInfo
+
+func (m *LoginRequest) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *LoginRequest) GetPassword() string {
+	if m != nil {
+		return m.Password
+	}
+	return ""
+}
+
+type LoginResponse struct {
+	State                string   `protobuf:"bytes,1,opt,name=state,proto3" json:"state,omitempty"`
+	Code                 int32    `protobuf:"varint,2,opt,name=code,proto3" json:"code,omitempty"`
+	Message              string   `protobuf:"bytes,3,opt,name=message,proto3" json:"message,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *LoginResponse) Reset()         { *m = LoginResponse{} }
+func (m *LoginResponse) String() string { return proto.CompactTextString(m) }
+func (*LoginResponse) ProtoMessage()    {}
+func (*LoginResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_6d51d96c3ad891f5, []int{3}
+}
+
+func (m *LoginResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_LoginResponse.Unmarshal(m, b)
+}
+func (m *LoginResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_LoginResponse.Marshal(b, m, deterministic)
+}
+func (m *LoginResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LoginResponse.Merge(m, src)
+}
+func (m *LoginResponse) XXX_Size() int {
+	return xxx_messageInfo_LoginResponse.Size(m)
+}
+func (m *LoginResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_LoginResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_LoginResponse proto.InternalMessageInfo
+
+func (m *LoginResponse) GetState() string {
+	if m != nil {
+		return m.State
+	}
+	return ""
+}
+
+func (m *LoginResponse) GetCode() int32 {
+	if m != nil {
+		return m.Code
+	}
+	return 0
+}
+
+func (m *LoginResponse) GetMessage() string {
+	if m != nil {
+		return m.Message
+	}
+	return ""
+}
+
 func init() {
 	proto.RegisterType((*PingMessage)(nil), "proto.PingMessage")
 	proto.RegisterType((*PingResponse)(nil), "proto.PingResponse")
+	proto.RegisterType((*LoginRequest)(nil), "proto.LoginRequest")
+	proto.RegisterType((*LoginResponse)(nil), "proto.LoginResponse")
 }
 
 func init() { proto.RegisterFile("ping.proto", fileDescriptor_6d51d96c3ad891f5) }
 
 var fileDescriptor_6d51d96c3ad891f5 = []byte{
-	// 131 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x2a, 0xc8, 0xcc, 0x4b,
-	0xd7, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x62, 0x05, 0x53, 0x4a, 0xea, 0x5c, 0xdc, 0x01, 0x99,
-	0x79, 0xe9, 0xbe, 0xa9, 0xc5, 0xc5, 0x89, 0xe9, 0xa9, 0x42, 0x12, 0x5c, 0xec, 0x20, 0x35, 0xbe,
-	0xc5, 0xe9, 0x12, 0x8c, 0x0a, 0x8c, 0x1a, 0x9c, 0x41, 0x30, 0xae, 0x92, 0x16, 0x17, 0x0f, 0x48,
-	0x61, 0x50, 0x6a, 0x71, 0x41, 0x7e, 0x5e, 0x71, 0xaa, 0x90, 0x14, 0x17, 0x47, 0x11, 0x94, 0x0d,
-	0x55, 0x0a, 0xe7, 0x1b, 0xd9, 0x72, 0xb1, 0x80, 0xd4, 0x0a, 0x99, 0x72, 0x71, 0x41, 0x0c, 0x2f,
-	0xc9, 0xc8, 0x4f, 0x11, 0x12, 0x82, 0xd8, 0xac, 0x87, 0x64, 0x9f, 0x94, 0x30, 0x92, 0x18, 0xcc,
-	0xe8, 0x24, 0x36, 0xb0, 0x98, 0x31, 0x20, 0x00, 0x00, 0xff, 0xff, 0x8c, 0x94, 0x99, 0xfb, 0xaf,
-	0x00, 0x00, 0x00,
+	// 227 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x54, 0x90, 0xbd, 0x4e, 0xc5, 0x30,
+	0x0c, 0x85, 0x75, 0xe1, 0x16, 0xa8, 0x29, 0x8b, 0xe9, 0x10, 0x75, 0x42, 0x59, 0x40, 0x0c, 0x1d,
+	0x40, 0x30, 0xf2, 0x04, 0x54, 0x42, 0xe1, 0x09, 0x02, 0x8d, 0x42, 0x87, 0x26, 0xa1, 0x4e, 0xc5,
+	0xeb, 0xa3, 0xfc, 0x55, 0xbd, 0x53, 0x7c, 0xac, 0x73, 0x1c, 0x7f, 0x06, 0x70, 0x93, 0xd1, 0xbd,
+	0x5b, 0xac, 0xb7, 0x58, 0xc5, 0x87, 0xdf, 0xc3, 0xf5, 0xc7, 0x64, 0xf4, 0xa0, 0x88, 0xa4, 0x56,
+	0xc8, 0xe0, 0x32, 0x78, 0x06, 0xd2, 0xec, 0x70, 0x77, 0x78, 0xa8, 0x45, 0x91, 0xfc, 0x11, 0x9a,
+	0x60, 0x14, 0x8a, 0x9c, 0x35, 0xa4, 0xb0, 0x83, 0xab, 0x25, 0xd7, 0xd9, 0xba, 0x69, 0xfe, 0x06,
+	0xcd, 0xbb, 0xd5, 0x93, 0x11, 0xea, 0x77, 0x55, 0xe4, 0x11, 0xe1, 0x68, 0xe4, 0x5c, 0x7c, 0xb1,
+	0x0e, 0x79, 0x27, 0x89, 0xfe, 0xec, 0x32, 0xb2, 0xb3, 0x94, 0x2f, 0x9a, 0x7f, 0xc2, 0x4d, 0xce,
+	0xe7, 0xcf, 0x5a, 0xa8, 0xc8, 0x4b, 0x5f, 0x26, 0x24, 0x11, 0xc6, 0x7e, 0xdb, 0x51, 0xc5, 0x78,
+	0x25, 0x62, 0x1d, 0x00, 0xe6, 0xc4, 0xc2, 0xce, 0x13, 0x40, 0x96, 0x4f, 0x2b, 0x1c, 0x03, 0x00,
+	0xbe, 0x00, 0x24, 0x62, 0xff, 0x63, 0x47, 0xc4, 0x74, 0x8e, 0x7e, 0x77, 0x84, 0xee, 0x76, 0xd7,
+	0xdb, 0x56, 0x78, 0x85, 0x3a, 0xee, 0x14, 0x67, 0x14, 0xc7, 0x9e, 0xb2, 0x6b, 0x4f, 0x9b, 0x29,
+	0xf7, 0x75, 0x11, 0x9b, 0xcf, 0xff, 0x01, 0x00, 0x00, 0xff, 0xff, 0x3a, 0x9c, 0xe7, 0xbe, 0x7c,
+	0x01, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -135,6 +245,7 @@ const _ = grpc.SupportPackageIsVersion4
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type PingClient interface {
 	PingMethod(ctx context.Context, in *PingMessage, opts ...grpc.CallOption) (*PingResponse, error)
+	LoginPing(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
 }
 
 type pingClient struct {
@@ -154,9 +265,19 @@ func (c *pingClient) PingMethod(ctx context.Context, in *PingMessage, opts ...gr
 	return out, nil
 }
 
+func (c *pingClient) LoginPing(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error) {
+	out := new(LoginResponse)
+	err := c.cc.Invoke(ctx, "/proto.Ping/LoginPing", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PingServer is the server API for Ping service.
 type PingServer interface {
 	PingMethod(context.Context, *PingMessage) (*PingResponse, error)
+	LoginPing(context.Context, *LoginRequest) (*LoginResponse, error)
 }
 
 // UnimplementedPingServer can be embedded to have forward compatible implementations.
@@ -165,6 +286,9 @@ type UnimplementedPingServer struct {
 
 func (*UnimplementedPingServer) PingMethod(ctx context.Context, req *PingMessage) (*PingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PingMethod not implemented")
+}
+func (*UnimplementedPingServer) LoginPing(ctx context.Context, req *LoginRequest) (*LoginResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LoginPing not implemented")
 }
 
 func RegisterPingServer(s *grpc.Server, srv PingServer) {
@@ -189,6 +313,24 @@ func _Ping_PingMethod_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Ping_LoginPing_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LoginRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PingServer).LoginPing(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.Ping/LoginPing",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PingServer).LoginPing(ctx, req.(*LoginRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Ping_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "proto.Ping",
 	HandlerType: (*PingServer)(nil),
@@ -196,6 +338,10 @@ var _Ping_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "PingMethod",
 			Handler:    _Ping_PingMethod_Handler,
+		},
+		{
+			MethodName: "LoginPing",
+			Handler:    _Ping_LoginPing_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
