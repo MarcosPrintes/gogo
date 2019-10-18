@@ -16,5 +16,5 @@ func main() {
 }
 
 func handlerHttp(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("sdkjfhsdkfjh")
+	fmt.Println("http server is 'workando' ")
 }

@@ -1,0 +1,323 @@
+[33mcommit 3d51c72420d898d23bd830e93cbe817e67e20fa6[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Thu May 30 16:58:18 2019 -0400
+
+    login client rpc
+
+[33mcommit 1bccbddbbda6ee0335585ecdc7b806c0ba329d84[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Thu May 30 16:50:51 2019 -0400
+
+    client grpc
+
+[33mcommit 1564f13f2851a203269278b79df01ec6165e7169[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Thu May 30 15:42:11 2019 -0400
+
+    server instance grpcTest
+
+[33mcommit 213006ca0fdffe00fda6c48cb660d26320bd27c5[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Thu May 30 15:30:43 2019 -0400
+
+    grpc structure
+
+[33mcommit c61f376c63b90f02fd7c4f1e404dc7a19bbca2c0[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Thu May 30 15:24:14 2019 -0400
+
+    grpc
+
+[33mcommit 75f2ba4a5796cf54a979d7a056a05fa2817756ec[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Thu May 30 09:21:44 2019 -0400
+
+    functions
+
+[33mcommit ef1da7c631e49c26504abddc61bfed5c54ccc672[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Wed May 29 10:22:16 2019 -0400
+
+    channels, goroutines, servers
+
+[33mcommit a9ae362dfa1d465308fe0a7b47f6f7e7256f1b50[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Sat May 25 10:21:16 2019 -0400
+
+    organizations folders
+
+[33mcommit 7d3b828ee65e1cf3bfeaa85e1c893ccbcff37525[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Fri May 24 16:39:02 2019 -0400
+
+    tcp server connections
+
+[33mcommit 59a0656fdfba264135c47f878f144e72ac4d02ac[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Fri May 24 13:23:30 2019 -0400
+
+    certs
+
+[33mcommit 5aa6d127f6de28d2df3f5b5e0482edbb866c45d9[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Thu May 23 18:39:44 2019 -0400
+
+    communicate with server
+
+[33mcommit ee75cec17b232345bc28199d9b998fad062876db[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Thu May 23 18:20:16 2019 -0400
+
+    tests grpc
+
+[33mcommit b83c6a802d4390062954e0aa714ecdfb314177e7[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Tue May 21 17:16:17 2019 -0400
+
+    grpc revision
+
+[33mcommit 23e6917f8b98c241b3510b03bfb2c4dea7871138[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Tue May 21 15:32:19 2019 -0400
+
+    improvimente grpc tests
+
+[33mcommit 75468222193f1262c9b4f53a8acee091150f2d57[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Wed May 15 16:33:19 2019 -0400
+
+    ajuste rpc
+
+[33mcommit 104abb9db1590dae3c5ba1792f842f38e8539c23[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Wed May 15 16:11:56 2019 -0400
+
+    grpc, email, protobuf
+
+[33mcommit f1b17dc21ec48511bb51b888608cbb00a31db3ab[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Wed May 8 15:07:07 2019 -0400
+
+    front updated
+
+[33mcommit 1c098755bc02ca0c56266bce3c6f4ea4969b2f60[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Wed May 8 14:09:03 2019 -0400
+
+    encrypt login
+
+[33mcommit 0a86bbd6a1fa9fcb4e9a2c7c9ac97d3bd3fe49e3[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Tue May 7 18:49:45 2019 -0400
+
+    login
+
+[33mcommit 41e2f39c4f36afa4395a17c075b7a32d099bc43e[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Tue May 7 17:46:23 2019 -0400
+
+    alteração login echo api
+
+[33mcommit ff61fa9e8d0187fc36cbfb8c27ce58a566bfc950[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Tue May 7 16:47:34 2019 -0400
+
+    api echo
+
+[33mcommit cefc2ae52b3f4a2ad6314ad08694e54d501f776e[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Fri May 3 16:45:04 2019 -0400
+
+    start front app
+
+[33mcommit d21ec5e0a1dcc1ee534dcb0da3d79c970ca52f9d[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Thu May 2 15:20:07 2019 -0400
+
+    places app
+
+[33mcommit 1f5a321c2b10440eb2e55aec9764537d255de221[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Tue Apr 30 17:17:31 2019 -0400
+
+    places app
+
+[33mcommit 3c09603ecebcf1527da8a7112b89191051a9198c[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Mon Apr 29 17:48:07 2019 -0400
+
+    remove unsets
+
+[33mcommit 13932e2da4f0ffe190eed35c979df72dffcae23b[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Mon Apr 29 17:41:08 2019 -0400
+
+    add vue places
+
+[33mcommit 1d92274232f1d858b859d6a534006517dc83768b[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Mon Apr 29 17:34:34 2019 -0400
+
+    remoção unsets
+
+[33mcommit 458d7f69a6020b537460c216e9a02a9d3afefc14[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Mon Apr 29 17:02:03 2019 -0400
+
+    cryptography introduction
+
+[33mcommit c168e0ed3e8b659f7d039a1f5f3db34d76537068[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Fri Apr 26 17:16:09 2019 -0400
+
+    fasthttp intro
+
+[33mcommit b3bf6f067e70647c6acd4dbf3e78080cda5abb45[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Fri Apr 26 14:30:42 2019 -0400
+
+    correção update, create
+
+[33mcommit 9bf3947a90392f344bb8aee52451ee52de830bf0[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Fri Apr 26 13:40:06 2019 -0400
+
+    add a gitignore file
+
+[33mcommit 8dce9bbfedeec754ca67c958054c38291e9965b9[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Fri Apr 26 13:37:48 2019 -0400
+
+    mysql api crud
+
+[33mcommit f31af2bfa920d10080e521c3e6986ccb8d47e08c[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Thu Apr 25 17:08:07 2019 -0400
+
+    mysql api working
+
+[33mcommit 2b653264f147c3431539c9e72f1df7b17d134285[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Thu Apr 25 16:28:44 2019 -0400
+
+    api with mysql
+
+[33mcommit da983f7ed5184d34d19039651754d982dd84e7d6[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Thu Apr 25 10:07:59 2019 -0400
+
+    ajuste acesso mysql
+
+[33mcommit 5e2cfb9318e4b111536c0c281add3e3db8941b15[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Thu Apr 25 01:23:10 2019 -0400
+
+    go and mysql
+
+[33mcommit f157fa3d1f1c9ddf53b4e0314b73b0b28d26a553[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Wed Apr 24 13:39:05 2019 -0400
+
+    routing with gorilla, drone, and standard
+
+[33mcommit c5b32d07347ea54b507abaaea35308f52758cdb5[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Wed Apr 24 13:01:22 2019 -0400
+
+    api routing with gorilla/mux
+
+[33mcommit 7ed9c9ad8ac657df699d1af6791435e1744b005f[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Tue Apr 23 16:58:02 2019 -0400
+
+    deletes
+
+[33mcommit 10e700b91e3c9623ef5626f3a3f009da0e725196[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Tue Apr 23 16:51:07 2019 -0400
+
+    deletes
+
+[33mcommit 0bf2a15d1a7ae03bb4c952d04a2fdbe051f2d63f[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Tue Apr 23 16:45:34 2019 -0400
+
+    ajustes api
+
+[33mcommit e81f96d39dc70ed4a49e948743dfa4fe38383fd9[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Tue Apr 23 15:42:54 2019 -0400
+
+    vue frontend + go api
+
+[33mcommit 6c9bc0657ed39d73b2c3676b632feed2d15daee3[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Mon Apr 22 15:47:22 2019 -0400
+
+    go_resapi funcionando :)
+
+[33mcommit bc8da9f195de4346f4145ece82e3337af4b46337[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Mon Apr 22 13:31:50 2019 -0400
+
+    go_restapi
+
+[33mcommit 52b6035823eb54aad68bbc796452b73d6183fd48[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Sat Apr 20 14:38:54 2019 -0400
+
+    Servers
+
+[33mcommit fcba822f7f271d35130d288a19de9b5385f4284d[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Sat Apr 20 14:03:27 2019 -0400
+
+    include tests in pkg math
+
+[33mcommit de116977cb4a25303a495104ea8c8235278a6014[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Sat Apr 20 13:02:10 2019 -0400
+
+    concurrenncy
+
+[33mcommit c056c9d1aa2b848099b9669f705296f064b7088a[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Sat Apr 20 11:18:42 2019 -0400
+
+    Structs and interfaces (...)
+
+[33mcommit 7d83fdcb73ed827a83e7a2512d2200d9fb320438[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Sat Apr 20 01:21:03 2019 -0400
+
+    api
+
+[33mcommit 0b4173d783f06c7b7e354d20538ad43d057530f0[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Fri Apr 19 00:48:16 2019 -0400
+
+    Nomenclatura arquivos
+
+[33mcommit 23a35255b2317f3550473018f3c65956473d3ea7[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Thu Apr 18 18:53:32 2019 -0400
+
+    Structs and Interfaces
+
+[33mcommit d11178c9faf8644775787aa1f24618bb8adbd88a[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Thu Apr 18 17:15:53 2019 -0400
+
+    pointers
+
+[33mcommit 4f6d0b4b90de4ac6c883e4ba5223e8974d3608d9[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Thu Apr 18 16:05:48 2019 -0400
+
+    functions (defer, panic, recover)
+
+[33mcommit 1988a246274835a6e84d7c6b9023d24626347bff[m
+Author: marcosprintes <marcosp.printes@hotmail.com>
+Date:   Thu Apr 18 14:56:04 2019 -0400
+
+    Introduction, structure control, arrays maps slices, functions

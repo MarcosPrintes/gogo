@@ -1,0 +1,23 @@
+Funções hash Criptográficas
+
+  Funções hash são muito usadas para criptografia de dados, embora exista muitas classes de funções 
+  has criptográficas, elas devem possuir essas 4 propriedades para serem úteis.
+    
+    - Computacionalmente Eficiente
+      Um computador deve ser capaz de executar uma função hash em um curto período de tempo, embora atualmente
+      pc's domésticos podem processar uma função de hash em uma fração de segundos
+      Deve ser irreversível
+    
+    - Determinística
+      Para qualquer entrada, ela dever fornecer a mesma saída, se uma entrada for colocada um milão de vezes,
+      a saída deve ser a mesma em todas elas.
+
+    - Resistente a pré-image,
+      A saída de uma função de hash não deve fornecer nenhuma informação sobre a entrada, isto é chamado
+      resistência pré-imagem. Uma função de hash pode receber qualquer tipo de entrada, mas ela sempre irá
+      produzir um tamanho fixo de saída
+
+    - Resistente a colisão
+      Deve ser praticamente impossível encontar duas entradas que produzam o mesmo resultado. O objetivo
+      é encontar duas entradas que possam vir a produzir o mesmo resultado, que essa possibilidade
+      deve ser descartada.
